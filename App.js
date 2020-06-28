@@ -1,40 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
-import axios from 'axios';
-import ItemList from './src/components/ItemList/ItemList';
+import React from 'react';
+import { Provider } from 'react-redux';
+import ContentPage from './src/components/ContentPage/ContentPage';
+import { configureStore } from './store/store';
 
-const url = 'https://jsonplaceholder.typicode.com/photos?_limit=10';
+const store = configureStore();
 
 export default App = () => {
-  const [items, setItems] = useState();
-
-  useEffect(() => {
-    let mounted = true;
-
-    const getPhotos = async () => {
-      const res = await axios.get(url);
-      if (mounted) {
-        setItems(res.data);
-      }
-    };
-    getPhotos();
-
-    return () => {
-      mounted = false;
-    };
-  }, [url]);
-
   return (
-    <View style={styles.container}>
-      <ItemList items={items} />
-    </View>
+    <>
+      <Provider store={store}>
+        <ContentPage />
+      </Provider>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 30,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-  },
-});

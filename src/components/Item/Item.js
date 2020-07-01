@@ -5,16 +5,16 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  // Button,
+  Button,
 } from 'react-native';
-// import AddModal from '../AddModal/AddModal';
+import { AddModal } from '../AddModal/AddModal';
 
 export default Item = ({ item }) => {
-  // const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(open ? true : false);
 
   return (
     <>
-      {/* <Button onPress={setOpen(true)}>Add</Button> */}
+      <Button onPress={setOpen(true)}>Add</Button>
       <TouchableOpacity style={styles.touchable}>
         <View style={styles.imgContainer}>
           <Image
@@ -28,7 +28,7 @@ export default Item = ({ item }) => {
         </View>
       </TouchableOpacity>
 
-      {/* <AddModal open={open} setOpen={setOpen} /> */}
+      <AddModal open={open} setOpen={setOpen} />
     </>
   );
 };

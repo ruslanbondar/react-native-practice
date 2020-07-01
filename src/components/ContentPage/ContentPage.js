@@ -1,20 +1,19 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-// import axios from 'axios';
+import axios from 'axios';
 import ItemList from '../ItemList/ItemList';
-import { getPhotos } from '../../../store/sagas/photoSaga';
 
-// const url = 'https://jsonplaceholder.typicode.com/photos?_limit=10';
+const url = 'https://jsonplaceholder.typicode.com/photos?_limit=10';
 
-const ContentPage = ({ items, getPhotos }) => {
-  // const [items, setItems] = useState();
+const ContentPage = () => {
+  const [items, setItems] = useState();
+
+  const getPhotos = async () => {
+    const res = await axios.get(url);
+    setItems(res.data);
+  };
 
   useEffect(() => {
-    // const getPhotos = async () => {
-    //   const res = await axios.get(url);
-    //   setItems(res.data);
-    // };
     getPhotos();
   }, []);
 
@@ -25,13 +24,7 @@ const ContentPage = ({ items, getPhotos }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    items: state.photoReducer.data,
-  };
-};
-
-export default connect(mapStateToProps, { getPhotos })(ContentPage);
+export default ContentPage;
 
 const styles = StyleSheet.create({
   container: {

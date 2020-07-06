@@ -1,21 +1,13 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-  Button,
-} from 'react-native';
-import { AddModal } from '../AddModal/AddModal';
+import React, { useState } from 'react'
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
+import { EditModal } from './EditModal'
 
-export default Item = ({ item }) => {
-  const [open, setOpen] = useState(open ? true : false);
+export const Item = ({ item, onDelete }) => {
+  const [open, setOpen] = useState(false)
 
   return (
     <>
-      <Button onPress={setOpen(true)}>Add</Button>
-      <TouchableOpacity style={styles.touchable}>
+      <TouchableOpacity style={styles.touchable} onPress={() => setOpen(true)}>
         <View style={styles.imgContainer}>
           <Image
             style={styles.img}
@@ -28,10 +20,17 @@ export default Item = ({ item }) => {
         </View>
       </TouchableOpacity>
 
-      <AddModal open={open} setOpen={setOpen} />
+      <EditModal
+        open={open}
+        setOpen={setOpen}
+        onDelete={onDelete}
+        id={item.id}
+        title={item.title}
+        url={item.url}
+      />
     </>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   imgContainer: {
@@ -52,4 +51,4 @@ const styles = StyleSheet.create({
   touchable: {
     width: '50%',
   },
-});
+})

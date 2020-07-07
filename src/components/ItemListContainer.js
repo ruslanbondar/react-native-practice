@@ -17,9 +17,20 @@ export const ItemListContainer = () => {
     getPhotos()
   }, [])
 
+  const addItem = (title, url) => {
+    setItems((prev) => [
+      ...prev,
+      {
+        id: Date.now().toString(),
+        title,
+        url,
+      },
+    ])
+  }
+
   return (
     <View style={styles.container}>
-      <ItemList items={items} setItems={setItems} />
+      <ItemList items={items} setItems={setItems} addItem={addItem} />
     </View>
   )
 }

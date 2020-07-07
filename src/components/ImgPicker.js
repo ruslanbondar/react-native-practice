@@ -1,70 +1,54 @@
-import React, { useState } from 'react'
-import {
-  StyleSheet,
-  View,
-  Button,
-  Image,
-  ActivityIndicator,
-} from 'react-native'
-import ImagePicker from 'react-native-image-picker'
+import React from 'react'
+import { Image, View, StyleSheet } from 'react-native'
+import * as ImagePicker from 'expo-image-picker'
+import { CustomButton } from './common/CustomButton'
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons'
 
-export const ImgPicker = ({ item, filePath, setFilePath }) => {
-  const [inidicator, setInidicator] = useState(false)
-
-  const chooseFile = () => {
-    var options = {
-      title: 'Select Image',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    }
-    setInidicator(true)
-
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        setInidicator(false)
-      } else if (response.error) {
-        setInidicator(false)
-      } else {
-        setFilePath(response.uri)
-        setInidicator(false)
+export const ImgPicker = ({ url, setUrl }) => {
+  const pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      })
+      if (!result.cancelled) {
+        setUrl(result.uri)
       }
-    })
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.container}>
-        {inidicator ? (
-          <View style={{ marginVertical: 10 }}>
-            <ActivityIndicator color="black" />
-          </View>
-        ) : null}
-        {item && !filePath ? (
-          <Image
-            style={{ width: 250, height: 250 }}
-            source={{ uri: item.url }}
-          />
-        ) : (item && filePath) || filePath ? (
-          <>
-            <Image
-              source={{ uri: filePath }}
-              style={{ width: 250, height: 250 }}
-            />
-          </>
-        ) : null}
-        <Button title="Choose File" onPress={() => chooseFile()} />
-      </View>
+    <View style={styles.wrapper}>
+      {url ? (
+        <View style={styles.imgWrapper}>
+          <Image source={{ uri: url }} style={styles.img} />
+        </View>
+      ) : (
+        <FontAwesome name="photo" size={220} />
+      )}
+
+      <CustomButton onPress={pickImage} color="#3949ab">
+        <MaterialIcons name="add-a-photo" size={20} />
+      </CustomButton>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
+  wrapper: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 30,
+  },
+  imgWrapper: {
+    width: '100%',
+    marginBottom: 10,
+  },
+  img: {
+    height: 220,
   },
 })

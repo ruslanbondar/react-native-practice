@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
 import { EditModal } from './EditModal'
 
-export const Item = ({ item, onDelete }) => {
+export const Item = ({ item, onDelete, onSave }) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -24,6 +24,7 @@ export const Item = ({ item, onDelete }) => {
         open={open}
         setOpen={setOpen}
         onDelete={onDelete}
+        onSave={onSave}
         id={item.id}
         title={item.title}
         url={item.url}
@@ -37,18 +38,17 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 5,
     height: 200,
-    marginBottom: 20,
   },
   img: {
     width: '100%',
     height: 150,
-    marginTop: 20,
   },
   text: {
     textAlign: 'center',
-    fontSize: 10,
+    fontSize: 14,
   },
   touchable: {
     width: '50%',
+    marginBottom: 20,
   },
 })

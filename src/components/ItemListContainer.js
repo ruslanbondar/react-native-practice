@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import axios from 'axios'
 import { ItemList } from './ItemList'
 
@@ -8,13 +9,18 @@ const url = 'https://jsonplaceholder.typicode.com/photos?_limit=10'
 export const ItemListContainer = () => {
   const [items, setItems] = useState()
 
-  const getPhotos = async () => {
+  const storeData = async () => {
     const res = await axios.get(url)
-    setItems(res.data)
+    const jsonValue = JSON.stringify(res.data)
+    await AsyncStorage.setItem('photoItems', jsonValue)
+
+    let data = await AsyncStorage.getItem('photoItems')
+    data = JSON.parse(data)
+    setItems(data)
   }
 
   useEffect(() => {
-    getPhotos()
+    storeData()
   }, [])
 
   const addItem = (title, url) => {

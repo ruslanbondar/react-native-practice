@@ -57,8 +57,7 @@ export const ItemList = ({ items, setItems, addItem }) => {
           }}
           numColumns={2}
           keyExtractor={(item) => item.id.toString()}
-          key={(item) => item.id}
-          inverted={true}
+          // inverted={true}
         />
       </View>
     </>

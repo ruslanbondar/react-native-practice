@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useCallback } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { ItemList } from './ItemList'
 import { AppContext } from '../context/createContext'
@@ -6,8 +6,10 @@ import { AppContext } from '../context/createContext'
 export const ItemListContainer = () => {
   const { storeData } = useContext(AppContext)
 
+  const loadData = useCallback(async () => await storeData(), [storeData])
+
   useEffect(() => {
-    storeData()
+    loadData()
   }, [])
 
   return (

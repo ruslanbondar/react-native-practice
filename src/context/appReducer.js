@@ -1,4 +1,10 @@
-import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, SET_ITEMS } from './types'
+import {
+  ADD_ITEM,
+  DELETE_ITEM,
+  UPDATE_ITEM,
+  SET_ITEMS,
+  LOAD_MORE,
+} from './types'
 
 const handlers = {
   [ADD_ITEM]: (state, { title, url }) => ({
@@ -29,6 +35,7 @@ const handlers = {
     ...state,
     items: data,
   }),
+  [LOAD_MORE]: (state, { data }) => ({ ...state, items: data }),
   DEFAULT: (state) => state,
 }
 

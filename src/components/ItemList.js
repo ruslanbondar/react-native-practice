@@ -5,39 +5,28 @@ import { Item } from './Item'
 import { CustomButton } from './common/CustomButton'
 import { AddModal } from './AddModal'
 
-export const ItemList = ({ items, setItems, addItem }) => {
+export const ItemList = ({ items, deleteItem, updateItem, addItem }) => {
   const [open, setOpen] = useState(false)
 
-  const updateItem = (id, title) => {
-    setItems((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          item.title = title
-        }
-        return item
-      })
-    )
-  }
-
-  const deleteItem = (id) => {
-    Alert.alert(
-      'Deleting todo',
-      'Are you sure?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Delete',
-          onPress: () => {
-            setItems((prev) => prev.filter((item) => item.id !== id))
-          },
-        },
-      ],
-      { cancelable: false }
-    )
-  }
+  // const deleteItem = (id) => {
+  //   Alert.alert(
+  //     'Deleting todo',
+  //     'Are you sure?',
+  //     [
+  //       {
+  //         text: 'Cancel',
+  //         style: 'cancel',
+  //       },
+  //       {
+  //         text: 'Delete',
+  //         onPress: () => {
+  //           setItems((prev) => prev.filter((item) => item.id !== id))
+  //         },
+  //       },
+  //     ],
+  //     { cancelable: false }
+  //   )
+  // }
 
   return (
     <>

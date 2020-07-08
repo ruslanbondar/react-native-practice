@@ -1,24 +1,45 @@
-import React, { useState } from 'react'
-import { Modal, StyleSheet, View, Text, Image, TextInput } from 'react-native'
+import React, { useState, useContext } from 'react'
+import {
+  Modal,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TextInput,
+  Alert,
+} from 'react-native'
 import { CustomButton } from './common/CustomButton'
 import { AntDesign } from '@expo/vector-icons'
+import { AppContext } from '../context/createContext'
 
-export const EditModal = ({
-  open,
-  setOpen,
-  onDelete,
-  id,
-  title,
-  url,
-  onSave,
-}) => {
+export const EditModal = ({ open, setOpen, id, title, url }) => {
+  const { updateItem, deleteItem } = useContext(AppContext)
+
   const [edit, setEdit] = useState(false)
   const [newTitle, setNewTitle] = useState(title)
 
   const saveHandler = (title) => {
-    onSave(id, title)
+    updateItem(id, title)
     setOpen(false)
     setEdit(false)
+  }
+
+  const deleteHandler = (id) => {
+    Alert.alert(
+      'Deleting item',
+      'Are you sure?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          onPress: () => deleteItem(id),
+        },
+      ],
+      { cancelable: false }
+    )
   }
 
   return (
@@ -66,7 +87,7 @@ export const EditModal = ({
               <AntDesign name="edit" size={20} />
             </CustomButton>
 
-            <CustomButton color="#e53935" onPress={() => onDelete(id)}>
+            <CustomButton color="#e53935" onPress={() => deleteHandler(id)}>
               <AntDesign name="delete" size={20} />
             </CustomButton>
           </View>

@@ -3,12 +3,8 @@ import { StyleSheet, View } from 'react-native'
 import { ItemList } from './ItemList'
 import { AppContext } from '../context/createContext'
 
-const url = 'https://jsonplaceholder.typicode.com/photos?_limit=10'
-
 export const ItemListContainer = () => {
-  const { items, addItem, deleteItem, updateItem, storeData } = useContext(
-    AppContext
-  )
+  const { storeData } = useContext(AppContext)
 
   useEffect(() => {
     storeData()
@@ -16,12 +12,7 @@ export const ItemListContainer = () => {
 
   return (
     <View style={styles.container}>
-      <ItemList
-        items={items}
-        deleteItem={deleteItem}
-        updateItem={updateItem}
-        addItem={addItem}
-      />
+      <ItemList />
     </View>
   )
 }

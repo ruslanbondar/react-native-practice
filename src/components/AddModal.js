@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {
   Modal,
   StyleSheet,
@@ -11,16 +11,17 @@ import { AntDesign } from '@expo/vector-icons'
 
 import { CustomButton } from './common/CustomButton'
 import { ImgPicker } from './ImgPicker'
+import { AppContext } from '../context/createContext'
 
-export const AddModal = ({ open, setOpen, onSubmit }) => {
+export const AddModal = ({ open, setOpen }) => {
+  const { addItem } = useContext(AppContext)
+
   const [title, setTitle] = useState('')
   const [url, setUrl] = useState('')
 
   const pressHandler = () => {
     if (title.trim()) {
-      onSubmit(title, url)
-      setTitle('')
-      setUrl('')
+      addItem(title, url)
       setOpen(false)
       Keyboard.dismiss()
     } else {

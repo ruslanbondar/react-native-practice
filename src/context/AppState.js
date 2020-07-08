@@ -6,6 +6,18 @@ import { appReducer } from './appReducer'
 import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, SET_ITEMS } from './types'
 
 const url = 'https://jsonplaceholder.typicode.com/photos?_limit=10'
+// const testItem = [
+//   {
+//     id: 1,
+//     title: 'test title',
+//     url: 'https://via.placeholder.com/600/92c952',
+//   },
+//   {
+//     id: 2,
+//     title: 'test title 2',
+//     url: 'https://via.placeholder.com/600/92c952',
+//   },
+// ]
 
 export const AppState = ({ children }) => {
   const initialState = {
@@ -14,7 +26,9 @@ export const AppState = ({ children }) => {
 
   const [state, dispatch] = useReducer(appReducer, initialState)
 
-  const addItem = (title, url) => dispatch({ type: ADD_ITEM, title, url })
+  const addItem = (title, url) => {
+    dispatch({ type: ADD_ITEM, title, url })
+  }
 
   const deleteItem = (id) => dispatch({ type: DELETE_ITEM, id })
 

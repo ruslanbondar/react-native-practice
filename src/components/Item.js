@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
 import { EditModal } from './EditModal'
 
-export const Item = ({ item, onDelete, onSave }) => {
+export const Item = ({ item }) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -23,8 +23,6 @@ export const Item = ({ item, onDelete, onSave }) => {
       <EditModal
         open={open}
         setOpen={setOpen}
-        onDelete={onDelete}
-        onSave={onSave}
         id={item.id}
         title={item.title}
         url={item.url}

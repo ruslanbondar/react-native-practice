@@ -1,36 +1,19 @@
-import React, { useState } from 'react'
-import { FlatList, Alert, View, StyleSheet } from 'react-native'
+import React, { useState, useContext } from 'react'
+import { FlatList, View, StyleSheet } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Item } from './Item'
 import { CustomButton } from './common/CustomButton'
 import { AddModal } from './AddModal'
+import { AppContext } from '../context/createContext'
 
-export const ItemList = ({ items, deleteItem, updateItem, addItem }) => {
+export const ItemList = () => {
+  const { items } = useContext(AppContext)
+
   const [open, setOpen] = useState(false)
-
-  // const deleteItem = (id) => {
-  //   Alert.alert(
-  //     'Deleting todo',
-  //     'Are you sure?',
-  //     [
-  //       {
-  //         text: 'Cancel',
-  //         style: 'cancel',
-  //       },
-  //       {
-  //         text: 'Delete',
-  //         onPress: () => {
-  //           setItems((prev) => prev.filter((item) => item.id !== id))
-  //         },
-  //       },
-  //     ],
-  //     { cancelable: false }
-  //   )
-  // }
 
   return (
     <>
-      <AddModal open={open} setOpen={setOpen} onSubmit={addItem} />
+      <AddModal open={open} setOpen={setOpen} />
 
       <CustomButton color="#3949ab" onPress={() => setOpen(true)}>
         <MaterialIcons name="add-a-photo" size={20} />
@@ -40,13 +23,10 @@ export const ItemList = ({ items, deleteItem, updateItem, addItem }) => {
         <FlatList
           data={items}
           renderItem={({ item, index }) => {
-            return (
-              <Item item={item} onDelete={deleteItem} onSave={updateItem} />
-            )
+            return <Item item={item} />
           }}
           numColumns={2}
           keyExtractor={(item) => item.id.toString()}
-          // inverted={true}
         />
       </View>
     </>

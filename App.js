@@ -1,11 +1,14 @@
 import React from 'react'
-import { ItemListContainer } from './src/components/ItemListContainer'
+import { NavigationContainer } from '@react-navigation/native'
 import { AppState } from './src/context/AppState'
+import { AppTabs } from './src/navigation/AppNavigation'
 
 export default App = () => {
   return (
     <AppState>
-      <ItemListContainer />
+      <NavigationContainer>
+        <AppTabs />
+      </NavigationContainer>
     </AppState>
   )
 }

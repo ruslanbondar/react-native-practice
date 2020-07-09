@@ -23,6 +23,8 @@ export const AddModal = ({ open, setOpen }) => {
     if (title.trim()) {
       addItem(title, url)
       setOpen(false)
+      setTitle('')
+      setUrl('')
       Keyboard.dismiss()
     } else {
       Alert.alert('Title should not be empty')

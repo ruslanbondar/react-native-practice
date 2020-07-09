@@ -3,13 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import axios from 'axios'
 import { AppContext } from './createContext'
 import { appReducer } from './appReducer'
-import {
-  ADD_ITEM,
-  DELETE_ITEM,
-  UPDATE_ITEM,
-  SET_ITEMS,
-  LOAD_MORE,
-} from './types'
+import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, SET_ITEMS } from './types'
 
 const url = 'https://jsonplaceholder.typicode.com/photos?_limit=10'
 
@@ -38,12 +32,12 @@ export const AppState = ({ children }) => {
     dispatch({ type: SET_ITEMS, data })
   }
 
-  const getMoreItems = async () => {
-    const result = await axios.get(
-      `https://jsonplaceholder.typicode.com/photos?_limit=20`
-    )
-    dispatch({ type: LOAD_MORE, data: result.data })
-  }
+  // const getMoreItems = async () => {
+  //   const result = await axios.get(
+  //     `https://jsonplaceholder.typicode.com/photos?_limit=20`
+  //   )
+  //   dispatch({ type: LOAD_MORE, data: result.data })
+  // }
 
   return (
     <AppContext.Provider
@@ -53,7 +47,6 @@ export const AppState = ({ children }) => {
         deleteItem,
         updateItem,
         storeData,
-        getMoreItems,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import { FlatList, View, StyleSheet } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Item } from './Item'
@@ -7,13 +7,13 @@ import { AddModal } from './AddModal'
 import { AppContext } from '../context/createContext'
 
 export const ItemList = () => {
-  const { items, getMoreItems } = useContext(AppContext)
+  const { items } = useContext(AppContext)
 
   const [open, setOpen] = useState(false)
 
-  useEffect(() => {
-    getMoreItems()
-  }, [])
+  // useEffect(() => {
+  //   getMoreItems()
+  // }, [])
 
   return (
     <>
@@ -31,8 +31,8 @@ export const ItemList = () => {
           }}
           numColumns={2}
           keyExtractor={(item) => item.id.toString()}
-          onEndReached={getMoreItems}
-          onEndReachedThreshold={0.7}
+          // onEndReached={getMoreItems}
+          // onEndReachedThreshold={0.7}
         />
       </View>
     </>

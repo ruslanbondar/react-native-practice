@@ -1,13 +1,17 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createStackNavigator } from '@react-navigation/stack'
 import { Ionicons } from '@expo/vector-icons'
 import { MainScreen } from '../screens/MainScreen'
 import { AboutUsScreen } from '../screens/AboutUsScreen'
 import { SliderScreen } from '../screens/SliderScreen'
+import { AddItemScreen } from '../screens/AddItemScreen'
+import { EditItemScreen } from '../screens/EditItemScreen'
 
 const Tab = createBottomTabNavigator()
+const Stack = createStackNavigator()
 
-export const AppTabs = () => {
+const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -30,5 +34,27 @@ export const AppTabs = () => {
       <Tab.Screen name="Slider" component={SliderScreen} />
       <Tab.Screen name="About Us" component={AboutUsScreen} />
     </Tab.Navigator>
+  )
+}
+
+export const StackNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Tabs"
+        component={TabNavigator}
+        options={{ headerStatusBarHeight: 0, title: null }}
+      />
+      <Stack.Screen
+        name="AddItemScreen"
+        component={AddItemScreen}
+        options={{ title: 'Add Item' }}
+      />
+      <Stack.Screen
+        name="EditItemScreen"
+        component={EditItemScreen}
+        options={{ title: 'Edit Item' }}
+      />
+    </Stack.Navigator>
   )
 }

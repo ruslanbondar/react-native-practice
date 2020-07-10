@@ -29,7 +29,6 @@ const handlers = {
     ...state,
     items: data,
   }),
-  // [LOAD_MORE]: (state, { data }) => ({ ...state, items: data }),
   DEFAULT: (state) => state,
 }
 

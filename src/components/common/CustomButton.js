@@ -13,7 +13,7 @@ export const CustomButton = ({ children, onPress, color }) => {
 
 const styles = StyleSheet.create({
   button: {
-    paddingHorizontal: 30,
+    paddingHorizontal: 40,
     paddingVertical: 10,
     borderRadius: 5,
     flexDirection: 'row',

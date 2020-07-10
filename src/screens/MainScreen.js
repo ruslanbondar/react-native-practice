@@ -1,9 +1,9 @@
 import React, { useEffect, useContext, useCallback } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Button } from 'react-native'
 import { ItemList } from '../components/ItemList'
 import { AppContext } from '../context/createContext'
 
-export const MainScreen = () => {
+export const MainScreen = ({ navigation }) => {
   const { storeData } = useContext(AppContext)
 
   const loadData = useCallback(async () => await storeData(), [storeData])
@@ -14,7 +14,7 @@ export const MainScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ItemList />
+      <ItemList navigation={navigation} />
     </View>
   )
 }

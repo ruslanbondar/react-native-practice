@@ -32,13 +32,6 @@ export const AppState = ({ children }) => {
     dispatch({ type: SET_ITEMS, data })
   }
 
-  // const getMoreItems = async () => {
-  //   const result = await axios.get(
-  //     `https://jsonplaceholder.typicode.com/photos?_limit=20`
-  //   )
-  //   dispatch({ type: LOAD_MORE, data: result.data })
-  // }
-
   return (
     <AppContext.Provider
       value={{

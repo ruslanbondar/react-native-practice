@@ -1,5 +1,13 @@
 import React, { useState, useContext } from 'react'
-import { StyleSheet, View, Text, Image, TextInput, Alert } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  Alert,
+  Animated,
+} from 'react-native'
+import { PinchGestureHandler, State } from 'react-native-gesture-handler'
 import { CustomButton } from '../components/common/CustomButton'
 import { AntDesign } from '@expo/vector-icons'
 import { AppContext } from '../context/createContext'
@@ -41,16 +49,44 @@ export const EditItemScreen = ({ route, navigation }) => {
     )
   }
 
+  const scale = new Animated.Value(1)
+
+  const onZoomEvent = Animated.event(
+    [
+      {
+        nativeEvent: { scale },
+      },
+    ],
+    {
+      useNativeDriver: true,
+    }
+  )
+
+  const onZoomStateChange = (event) => {
+    if (event.nativeEvent.oldState === State.ACTIVE) {
+      Animated.spring(scale, {
+        toValue: 1,
+        useNativeDriver: true,
+      }).start()
+    }
+  }
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.content}>
         <View style={styles.imgContainer}>
-          <Image
-            style={styles.img}
-            source={{
-              uri: url,
-            }}
-          />
+          <PinchGestureHandler
+            onGestureEvent={onZoomEvent}
+            onHandlerStateChange={onZoomStateChange}
+          >
+            <Animated.Image
+              source={{
+                uri: url,
+              }}
+              style={{ ...styles.img, transform: [{ scale }] }}
+              resizeMode="contain"
+            />
+          </PinchGestureHandler>
 
           {edit ? (
             <View style={styles.editContainer}>
@@ -115,6 +151,7 @@ const styles = StyleSheet.create({
   img: {
     width: '100%',
     height: 220,
+    zIndex: 100,
   },
   text: {
     textAlign: 'center',

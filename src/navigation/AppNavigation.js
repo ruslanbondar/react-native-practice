@@ -7,6 +7,7 @@ import { AboutUsScreen } from '../screens/AboutUsScreen'
 import { SliderScreen } from '../screens/SliderScreen'
 import { AddItemScreen } from '../screens/AddItemScreen'
 import { EditItemScreen } from '../screens/EditItemScreen'
+import { SwipeableScreen } from '../screens/SwipeableScreen'
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -22,6 +23,8 @@ const TabNavigator = () => {
             iconName = 'md-home'
           } else if (route.name === 'Slider') {
             iconName = 'ios-albums'
+          } else if (route.name === 'Swipeable') {
+            iconName = 'ios-albums'
           } else if (route.name === 'About Us') {
             iconName = 'ios-beer'
           }
@@ -32,6 +35,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen name="Home" component={MainScreen} />
       <Tab.Screen name="Slider" component={SliderScreen} />
+      <Tab.Screen name="Swipeable" component={SwipeableScreen} />
       <Tab.Screen name="About Us" component={AboutUsScreen} />
     </Tab.Navigator>
   )

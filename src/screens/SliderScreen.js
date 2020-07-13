@@ -8,8 +8,8 @@ const { width, height } = Dimensions.get('window')
 export const SliderScreen = () => {
   const { cond, eq, add, set, Value, event } = Animated
 
-  const dragX = new Value(0)
-  const dragY = new Value(0)
+  const dragX = new Value(-200)
+  const dragY = new Value(-200)
   const offsetX = new Value(width / 2)
   const offsetY = new Value(height / 2)
 
@@ -43,39 +43,35 @@ export const SliderScreen = () => {
         onGestureEvent={onGestureEvent}
         onHandlerStateChange={onGestureEvent}
       >
-        <Animated.View
-          style={[
-            styles.box,
-            {
-              transform: [
-                {
-                  translateX: transX,
-                },
-                {
-                  translateY: transY,
-                },
-              ],
-            },
-          ]}
+        <Animated.Image
+          source={{
+            uri: 'https://via.placeholder.com/600/92c952',
+          }}
+          style={{
+            ...styles.img,
+            transform: [
+              {
+                translateX: transX,
+              },
+              {
+                translateY: transY,
+              },
+            ],
+          }}
+          resizeMode="contain"
         />
       </PanGestureHandler>
     </View>
   )
 }
 
-const CIRCLE_SIZE = 70
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  box: {
-    backgroundColor: 'tomato',
-    marginLeft: -(CIRCLE_SIZE / 2),
-    marginTop: -(CIRCLE_SIZE / 2),
-    width: CIRCLE_SIZE,
-    height: CIRCLE_SIZE,
-    borderRadius: CIRCLE_SIZE / 2,
-    borderColor: '#000',
+  img: {
+    width: '100%',
+    height: 220,
+    zIndex: 100,
   },
 })

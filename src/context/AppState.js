@@ -5,7 +5,7 @@ import { AppContext } from './createContext'
 import { appReducer } from './appReducer'
 import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, SET_ITEMS } from './types'
 
-const url = 'https://jsonplaceholder.typicode.com/photos?_limit=10'
+const url = 'https://jsonplaceholder.typicode.com/photos'
 
 export const AppState = ({ children }) => {
   const initialState = {
@@ -23,11 +23,21 @@ export const AppState = ({ children }) => {
   const updateItem = (id, title) => dispatch({ type: UPDATE_ITEM, id, title })
 
   const storeData = async () => {
-    const res = await axios.get(url)
+    const res = await axios.get(`${url}?_limit=10`)
     const jsonValue = JSON.stringify(res.data)
     await AsyncStorage.setItem('photoItems', jsonValue)
 
     let data = await AsyncStorage.getItem('photoItems')
+    data = JSON.parse(data)
+    dispatch({ type: SET_ITEMS, data })
+  }
+
+  const storeSliderData = async () => {
+    const res = await axios.get(`${url}?_limit=5`)
+    const jsonValue = JSON.stringify(res.data)
+    await AsyncStorage.setItem('sliderItems', jsonValue)
+
+    let data = await AsyncStorage.getItem('sliderItems')
     data = JSON.parse(data)
     dispatch({ type: SET_ITEMS, data })
   }
@@ -40,6 +50,7 @@ export const AppState = ({ children }) => {
         deleteItem,
         updateItem,
         storeData,
+        storeSliderData,
       }}
     >
       {children}

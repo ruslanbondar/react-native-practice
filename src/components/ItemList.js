@@ -1,21 +1,27 @@
 import React, { useContext } from 'react'
 import { FlatList, View, StyleSheet } from 'react-native'
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { Item } from './Item'
 import { CustomButton } from './common/CustomButton'
 import { AppContext } from '../context/createContext'
 
 export const ItemList = ({ navigation }) => {
-  const { items } = useContext(AppContext)
+  const { items, setToken } = useContext(AppContext)
 
   return (
     <>
-      <CustomButton
-        color="#3949ab"
-        onPress={() => navigation.navigate('AddItemScreen')}
-      >
-        <MaterialIcons name="add-a-photo" size={20} />
-      </CustomButton>
+      <View style={styles.buttonWrapper}>
+        <CustomButton
+          color="#3949ab"
+          onPress={() => navigation.navigate('AddItemScreen')}
+        >
+          <MaterialIcons name="add-a-photo" size={20} />
+        </CustomButton>
+
+        <CustomButton color="#3949ab" onPress={() => setToken(null)}>
+          <SimpleLineIcons name="logout" size={20} />
+        </CustomButton>
+      </View>
 
       <View style={styles.list}>
         <FlatList
@@ -35,5 +41,10 @@ const styles = StyleSheet.create({
   list: {
     paddingTop: 10,
     paddingBottom: 70,
+  },
+  buttonWrapper: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 })

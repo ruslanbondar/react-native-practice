@@ -1,4 +1,11 @@
-import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, SET_ITEMS } from './types'
+import {
+  ADD_ITEM,
+  DELETE_ITEM,
+  UPDATE_ITEM,
+  SET_ITEMS,
+  SET_SLIDER_ITEMS,
+  SET_TOKEN,
+} from './types'
 
 const handlers = {
   [ADD_ITEM]: (state, { title, url }) => ({
@@ -28,6 +35,14 @@ const handlers = {
   [SET_ITEMS]: (state, { data }) => ({
     ...state,
     items: data,
+  }),
+  [SET_SLIDER_ITEMS]: (state, { data }) => ({
+    ...state,
+    sliderItems: data,
+  }),
+  [SET_TOKEN]: (state, { token }) => ({
+    ...state,
+    token,
   }),
   DEFAULT: (state) => state,
 }

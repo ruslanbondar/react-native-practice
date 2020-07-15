@@ -5,7 +5,7 @@ import { Slider } from '../components/Slider'
 import { AppContext } from '../context/createContext'
 
 export const SliderScreen = () => {
-  const { storeSliderData, items } = useContext(AppContext)
+  const { storeSliderData, sliderItems } = useContext(AppContext)
 
   const loadData = useCallback(async () => await storeSliderData(), [
     storeSliderData,
@@ -28,7 +28,7 @@ export const SliderScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Slider data={items} renderCard={renderCard} />
+      <Slider data={sliderItems} renderCard={renderCard} />
     </View>
   )
 }

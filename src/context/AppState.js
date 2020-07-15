@@ -3,13 +3,22 @@ import AsyncStorage from '@react-native-community/async-storage'
 import axios from 'axios'
 import { AppContext } from './createContext'
 import { appReducer } from './appReducer'
-import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, SET_ITEMS } from './types'
+import {
+  ADD_ITEM,
+  DELETE_ITEM,
+  UPDATE_ITEM,
+  SET_ITEMS,
+  SET_SLIDER_ITEMS,
+  SET_TOKEN,
+} from './types'
 
 const url = 'https://jsonplaceholder.typicode.com/photos'
 
 export const AppState = ({ children }) => {
   const initialState = {
     items: [],
+    sliderItems: [],
+    token: null,
   }
 
   const [state, dispatch] = useReducer(appReducer, initialState)
@@ -39,18 +48,23 @@ export const AppState = ({ children }) => {
 
     let data = await AsyncStorage.getItem('sliderItems')
     data = JSON.parse(data)
-    dispatch({ type: SET_ITEMS, data })
+    dispatch({ type: SET_SLIDER_ITEMS, data })
   }
+
+  const setToken = (token) => dispatch({ type: SET_TOKEN, token })
 
   return (
     <AppContext.Provider
       value={{
         items: state.items,
+        sliderItems: state.sliderItems,
+        token: state.token,
         addItem,
         deleteItem,
         updateItem,
         storeData,
         storeSliderData,
+        setToken,
       }}
     >
       {children}

@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useCallback } from 'react'
-import { StyleSheet, View, Button } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { ItemList } from '../components/ItemList'
 import { AppContext } from '../context/createContext'
 

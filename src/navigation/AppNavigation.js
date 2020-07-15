@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { Ionicons } from '@expo/vector-icons'
@@ -7,7 +7,8 @@ import { AboutUsScreen } from '../screens/AboutUsScreen'
 import { SliderScreen } from '../screens/SliderScreen'
 import { AddItemScreen } from '../screens/AddItemScreen'
 import { EditItemScreen } from '../screens/EditItemScreen'
-import { SwipeableScreen } from '../screens/SwipeableScreen'
+import { AuthScreen } from '../screens/AuthScreen'
+import { AppContext } from '../context/createContext'
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -23,8 +24,6 @@ const TabNavigator = () => {
             iconName = 'md-home'
           } else if (route.name === 'Slider') {
             iconName = 'ios-albums'
-          } else if (route.name === 'Swipeable') {
-            iconName = 'ios-albums'
           } else if (route.name === 'About Us') {
             iconName = 'ios-beer'
           }
@@ -35,13 +34,12 @@ const TabNavigator = () => {
     >
       <Tab.Screen name="Home" component={MainScreen} />
       <Tab.Screen name="Slider" component={SliderScreen} />
-      <Tab.Screen name="Swipeable" component={SwipeableScreen} />
       <Tab.Screen name="About Us" component={AboutUsScreen} />
     </Tab.Navigator>
   )
 }
 
-export const StackNavigator = () => {
+const StackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -60,5 +58,42 @@ export const StackNavigator = () => {
         options={{ title: 'Edit Item' }}
       />
     </Stack.Navigator>
+  )
+}
+
+const Auth = createStackNavigator()
+const Root = createStackNavigator()
+
+const AuthNavigator = () => {
+  return (
+    <Auth.Navigator>
+      <Auth.Screen
+        name="SignIn"
+        component={AuthScreen}
+        options={{ title: 'Sign In' }}
+      />
+    </Auth.Navigator>
+  )
+}
+
+export const RootStackNavigator = () => {
+  const { token } = useContext(AppContext)
+
+  return (
+    <Root.Navigator>
+      {token ? (
+        <Root.Screen
+          name="MainScreen"
+          component={StackNavigator}
+          options={{ headerStatusBarHeight: 0, title: null }}
+        />
+      ) : (
+        <Root.Screen
+          name="Root"
+          component={AuthNavigator}
+          options={{ headerStatusBarHeight: 0, title: null }}
+        />
+      )}
+    </Root.Navigator>
   )
 }
